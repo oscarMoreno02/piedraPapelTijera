@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id()->unique();
             $table->integer('usuario');
             $table->integer('usuario2');
-            $table->integer('puntuacion_usuario');
-            $table->integer('puntuacion_usuario2');
-            $table->integer('finalizada');
-            $table->integer('rondas_restantes');
+            $table->integer('puntuacion_usuario')->default(0);
+            $table->integer('puntuacion_usuario2')->default(0);
+            $table->integer('finalizada')->default(0);
+            $table->integer('rondas_restantes')->default(5);
         });
     }
 

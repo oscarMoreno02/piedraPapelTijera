@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id()->unique();
             $table->string('nombre')->unique();
             $table->string('password');
-            $table->integer('partidas_jugadas');
-            $table->integer('partidas_ganadas');
-            $table->integer('rol');
+            $table->integer('partidas_jugadas')->default(0);
+            $table->integer('partidas_ganadas')->default(0);
+            $table->integer('rol')->default(0);
             
         });
     }
