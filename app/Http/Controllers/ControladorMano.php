@@ -33,21 +33,21 @@ class ControladorMano extends Controller
         $ranking = DB::select("SELECT 'piedra' AS opcion,
         SUM( (mano_usuario1 = 'piedra' AND mano_usuario2 = 'tijera')
         OR (mano_usuario1 = 'tijera' AND mano_usuario2 = 'piedra') )
-        AS total_ganadas, COUNT(*) AS total_partidas FROM manos
+        AS total_ganadas, COUNT(*) AS total_partidas FROM mano
         
         UNION
 
         SELECT 'papel' AS opcion,
          SUM( (mano_usuario1 = 'papel' AND mano_usuario2 = 'piedra')
          OR (mano_usuario1 = 'piedra' AND mano_usuario2 = 'papel') )
-          AS total_ganadas, COUNT(*) AS total_partidas FROM manos
+          AS total_ganadas, COUNT(*) AS total_partidas FROM mano
 
           UNION
           
            SELECT 'tijera' AS opcion,
            SUM( (mano_usuario1 = 'tijera' AND mano_usuario2 = 'papel')
            OR (mano_usuario1 = 'papel' AND mano_usuario2 = 'tijera') )
-           AS total_ganadas, COUNT(*) AS total_partidas FROM manos ORDER BY opcion;");
+           AS total_ganadas, COUNT(*) AS total_partidas FROM mano ORDER BY total_ganadas DESC;");
 
            return response()->json(['mensaje'=>$ranking]);
     }

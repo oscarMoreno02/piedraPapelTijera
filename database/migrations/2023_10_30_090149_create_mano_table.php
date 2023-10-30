@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('mano', function (Blueprint $table) {
             $table->id()->unique();
             $table->integer('id_partida');
-            $table->string('mano_usuario',30);
+            $table->string('mano_usuario1',30);
             $table->string('mano_usuario2',30);
             $table->integer('ganador');
             
