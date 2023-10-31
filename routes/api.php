@@ -4,6 +4,7 @@ use App\Http\Controllers\ControladorUsuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControladorPartida;
+use App\Http\Controllers\ControladorMano;
 /*
 |--------------------------------------------------------------------------
 | API Routes
