@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Partida;
 class Mano extends Model
 {
-    protected $table='manos';
+    use HasFactory;
+    protected $table='mano';
     public $timestamps=false;
     
 }

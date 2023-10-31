@@ -35,7 +35,7 @@ class ControladorPartida extends Controller
             $mano->ganador = $p->usuario2;
         }
         if ($ganador == 0) {
-            $mano->ganador = 'empate';
+            $mano->ganador = '0';
         }
         $p->rondasRestantes -= 1;
         if ($p->rondas_restantes == 0) {

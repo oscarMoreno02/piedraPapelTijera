@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Partida extends Model
 {
+    use HasFactory;
     protected $table='partida';
     public $timestamps=false;
 }
