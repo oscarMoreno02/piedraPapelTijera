@@ -16,7 +16,7 @@ class AdminPass
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $persona = DB::select('select rol from usuario where nombre = ? ', [$request->get('username')]);
+        $persona = DB::select('select rol from usuario where nombre = ? ', [$request->get('nombre')]);
         if ($persona && $persona[0]->rol == 1) {
             return $next($request);
         } else {
