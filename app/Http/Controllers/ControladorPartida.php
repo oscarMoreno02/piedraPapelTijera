@@ -108,7 +108,7 @@ class ControladorPartida extends Controller
         $ranking = DB::select('SELECT u.nombre, SUM(
             IF(u.id = p.usuario AND p.puntuacion_usuario2 = p.puntuacion_usuario, 1,0)
             + IF(u.id = p.usuario2 AND p.puntuacion_usuario = p.puntuacion_usuario2, 1, 0)) as partidas_empatadas
-        FROM usuario u JOIN partida p ON u.id = p.usuario
+        FROM users u JOIN partida p ON u.id = p.usuario
         OR u.id = p.usuario2
         GROUP BY u.id, u.nombre
          ORDER BY partidas_empatadas DESC;');
@@ -118,7 +118,7 @@ class ControladorPartida extends Controller
        $ranking = DB::select('SELECT u.nombre, SUM(
         IF(u.id = p.usuario AND p.puntuacion_usuario2 > p.puntuacion_usuario, 1,0)
        + IF(u.id = p.usuario2 AND p.puntuacion_usuario > p.puntuacion_usuario2, 1, 0)) as partidas_perdidas
-       FROM usuario u JOIN partida p ON u.id = p.usuario
+       FROM users u JOIN partida p ON u.id = p.usuario
        OR u.id = p.usuario2
        GROUP BY u.id, u.nombre
         ORDER BY partidas_perdidas DESC;');

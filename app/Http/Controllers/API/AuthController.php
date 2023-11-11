@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 use Illuminate\Http\Request;
 
-use App\Models\Usuario;
+
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +17,7 @@ class AuthController extends Controller
     {
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $auth = Auth::user();
-            $persona = DB::select('select rol from usuario where email = ? ', [$request->get('email')]);
+            $persona = DB::select('select rol from users where email = ? ', [$request->get('email')]);
             if ($persona[0]->rol == 1) {
                $success['token'] =  $auth->createToken('access_token',["admin"])->plainTextToken;
             } else {

@@ -24,7 +24,7 @@ class ManoFactory extends Factory
         $partida=Partida::find(AuxPartida::$IDPARTIDA);
 
         $user1=$partida->usuario;
-        $user2=$partida->usuario;
+        $user2=$partida->usuario2;
 
         $manoUsuario1=$this->faker->randomElement(['piedra', 'papel', 'tijera']);
         $manoUsuario2=$this->faker->randomElement(['piedra', 'papel', 'tijera']);
