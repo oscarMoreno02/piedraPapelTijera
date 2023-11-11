@@ -38,13 +38,30 @@ class ControladorPartida extends Controller
             $mano->ganador = '0';
         }
         $p->rondasRestantes -= 1;
-        if ($p->rondas_restantes == 0) {
+        $ganador=null;
+        if ($p->rondas_restantes == 0 ||$p->puntuacion_usuario==3|$p->puntuacion_usuario2==3) {
             $p->finalizada = 1;
+            
+            if($p->puntuacion_usuario>$p->puntuacion_usuario2){
+                $ganador=$p->usuario;
+
+            }else{
+                if($p->puntuacion_usuario<$p->puntuacion_usuario2){
+                    $ganador=$p->usuario2;
+
+                }else{
+                    $ganador=0;
+                }
+            }
         }
         $p->save();
         $mano->save();
-
-        return response()->json([$mano]);
+        if($p->finalizada==0){
+            return response()->json([$mano]);
+        }else{
+            return response()->json([$mano,$p,$ganador]);
+        }
+        
     }
 
 
