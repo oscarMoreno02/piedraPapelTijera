@@ -18,7 +18,7 @@ class AuthController extends Controller
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $auth = Auth::user();
             $persona = DB::select('select rol from users where email = ? ', [$request->get('email')]);
-            if ($persona[0]->rol == 1) {
+            if ($persona[0]->rol) {
                $success['token'] =  $auth->createToken('access_token',["admin"])->plainTextToken;
             } else {
                 $success['token'] =  $auth->createToken('access_token',["user"])->plainTextToken;
@@ -36,7 +36,8 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $messages = [
-            'unique' => 'Ese correo ya existe en la bd',
+            'email.unique' => 'Ese correo ya existe en la bd',
+            'nombre.unique' => 'Ese nombre ya existe en la bd',
             'email' => 'El campo no se ajusta a un correo estándar',
             'same' => 'Los campos :password y :confirm_password deben coincidir',
             'max' => 'El campo se excede del tamaño máximo',
@@ -44,7 +45,7 @@ class AuthController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:20',
+            'nombre' => 'required|string|max:20|unique:users',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required',
             'confirm_password' => 'required|same:password',
@@ -59,11 +60,11 @@ class AuthController extends Controller
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-        if ($user[0]->rol == 1) {
+    
             $success['token'] =  $user->createToken('access_token',["admin"])->plainTextToken;
-         } else {
+     
              $success['token'] =  $user->createToken('access_token',["user"])->plainTextToken;
-         }
+        
         $success['name'] =  $user->name;
 
         return response()->json(["success" => true, "data" => $success, "message" => "User successfully registered!"]);
