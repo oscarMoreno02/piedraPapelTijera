@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Partida;
 use App\Models\Mano;
-use App\Models\Usuario;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class ControladorPartida extends Controller
@@ -92,13 +92,13 @@ class ControladorPartida extends Controller
     }
     function rankingVictorias()
     {
-        $ranking = Usuario::orderBy('partidas_ganadas', 'desc')->get(['partidas_ganadas', 'nombre']);
+        $ranking = User::orderBy('partidas_ganadas', 'desc')->get(['partidas_ganadas', 'nombre']);
 
         return response()->json(['mensaje' => $ranking]);
     }
     function rankingJugadas()
     {
-        $ranking = Usuario::orderBy('partidas_ganadas', 'desc')->get(['partidas_jugadas', 'nombre']);
+        $ranking = User::orderBy('partidas_ganadas', 'desc')->get(['partidas_jugadas', 'nombre']);
 
         return response()->json(['mensaje' => $ranking]);
     }

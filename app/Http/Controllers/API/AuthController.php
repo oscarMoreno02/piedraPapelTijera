@@ -3,20 +3,27 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateUserRequest;
 use Illuminate\Http\Request;
 
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        if(Auth::attempt(['nombre' => $request->nombre, 'password' => $request->password])){
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $auth = Auth::user();
-            //return $auth;
-            $success['token'] =  $auth->createToken('LaravelSanctumAuth')->plainTextToken;
+            $persona = DB::select('select rol from usuario where email = ? ', [$request->get('email')]);
+            if ($persona[0]->rol == 1) {
+               $success['token'] =  $auth->createToken('access_token',["admin"])->plainTextToken;
+            } else {
+                $success['token'] =  $auth->createToken('access_token',["user"])->plainTextToken;
+            }
+           
             $success['nombre'] =  $auth->nombre;
 
             return response()->json(["success"=>true,"data"=>$success, "message" => "User logged-in!"]);
@@ -28,19 +35,41 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-   
+        $messages = [
+            'unique' => 'Ese correo ya existe en la bd',
+            'email' => 'El campo no se ajusta a un correo estándar',
+            'same' => 'Los campos :password y :confirm_password deben coincidir',
+            'max' => 'El campo se excede del tamaño máximo',
+            'between' => 'El campo :edad no está entre :18,100'
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:20',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required',
+            'confirm_password' => 'required|same:password',
+            'edad' => 'numeric|integer|between:18,90'
+        ], $messages);
+
+        if($validator->fails()){
+            return response()->json($validator->errors(),202);
+        }
+
+
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        $user = Usuario::create($input);
-        $success['token'] =  $user->createToken('LaravelSanctumAuth')->plainTextToken;
-        $success['nombre'] =  $user->nombre;
+        $user = User::create($input);
+        if ($user[0]->rol == 1) {
+            $success['token'] =  $user->createToken('access_token',["admin"])->plainTextToken;
+         } else {
+             $success['token'] =  $user->createToken('access_token',["user"])->plainTextToken;
+         }
+        $success['name'] =  $user->name;
 
-        return response()->json(["success"=>true,"data"=>$success, "message" => "User successfully registered!"]);
+        return response()->json(["success" => true, "data" => $success, "message" => "User successfully registered!"]);
     }
     
-     /**
-     * Por defecto los tokens de Sanctum no expiran. Se puede modificar esto añadiendo una cantidad en minutos a la variable 'expiration' en el archivo de config/sanctum.php.
-     */
+  
      public function logout(Request $request)
     {
         if(Auth::attempt(['nombre' => $request->nombre, 'password' => $request->password])){

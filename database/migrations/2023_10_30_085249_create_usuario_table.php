@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('usuario', function (Blueprint $table) {
-            $table->id()->unique();
-            $table->string('nombre')->unique();
-            $table->string('password');
-            $table->integer('partidas_jugadas')->default(0);
-            $table->integer('partidas_ganadas')->default(0);
-            $table->integer('rol')->default(0);
-            $table->rememberToken();
-        });
+        // Schema::create('usuario', function (Blueprint $table) {
+        //     $table->id()->unique();
+        //     $table->string('nombre')->unique();
+        //     $table->string('password');
+        //     $table->integer('partidas_jugadas')->default(0);
+        //     $table->integer('partidas_ganadas')->default(0);
+        //     $table->integer('rol')->default(0);
+        //     $table->rememberToken();
+        // });
     }
 
     /**

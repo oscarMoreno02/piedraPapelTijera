@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Factories;
-use App\Models\Usuario;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\aux\AuxPartida;
 use App\Models\Mano;
@@ -21,8 +21,8 @@ class PartidaFactory extends Factory
     public function definition(): array
     {
         return [
-            'usuario' =>$this->faker->randomElement(Usuario::get('id')),
-            'usuario2' => $this->faker->randomElement(Usuario::get('id')),
+            'usuario' =>$this->faker->randomElement(User::get('id')),
+            'usuario2' => $this->faker->randomElement(User::get('id')),
             'puntuacion_usuario' => 0,
             'puntuacion_usuario2' => 0,
             'finalizada' => 1,

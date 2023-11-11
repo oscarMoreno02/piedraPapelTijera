@@ -16,11 +16,12 @@ class AdminPass
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $persona = DB::select('select rol from usuario where nombre = ? ', [$request->get('nombre')]);
-        if ($persona && $persona[0]->rol == 1) {
-            return $next($request);
-        } else {
-            return response()->json(null, 406);
+        $user = $request->user();
+        if ($user->tokenCan("admin")) {
+           return $next($request);
+        }
+        else {
+            return response()->json(["success"=>false, "message" => "No autorizado"],202);
         }
     }
 }
