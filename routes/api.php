@@ -71,7 +71,7 @@ Route::middleware('auth:sanctum')->group(function(){
     
             Route::get('', 'consultarTodasLasManos');
     
-            Route::post('usuario', 'consultarManosUsuario');
+            Route::get('usuario', 'consultarManosUsuario');
             
             route::get('partida','consultarManosPartida');
         
@@ -97,9 +97,9 @@ Route::middleware('auth:sanctum')->group(function(){
 
 
 
-Route::get('', function () {
-    return response()->json("No autorizado",203);
-})->name('nologin');
+// Route::get('', function () {
+//     return response()->json("No autorizado",203);
+// })->name('nologin');
 
 
 Route::post('login', [AuthController::class, 'login']);

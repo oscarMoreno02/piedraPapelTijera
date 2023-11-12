@@ -49,7 +49,6 @@ class AuthController extends Controller
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required',
             'confirm_password' => 'required|same:password',
-            'edad' => 'numeric|integer|between:18,90'
         ], $messages);
 
         if($validator->fails()){
@@ -60,11 +59,6 @@ class AuthController extends Controller
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-    
-            $success['token'] =  $user->createToken('access_token',["admin"])->plainTextToken;
-     
-             $success['token'] =  $user->createToken('access_token',["user"])->plainTextToken;
-        
         $success['name'] =  $user->name;
 
         return response()->json(["success" => true, "data" => $success, "message" => "User successfully registered!"]);
@@ -73,7 +67,7 @@ class AuthController extends Controller
   
      public function logout(Request $request)
     {
-        if(Auth::attempt(['nombre' => $request->nombre, 'password' => $request->password])){
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $cantidad = Auth::user()->tokens()->delete();
             return response()->json(["success"=>true, "message" => "Tokens Revoked: ".$cantidad],200);
         }

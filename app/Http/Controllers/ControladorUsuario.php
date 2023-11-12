@@ -39,13 +39,14 @@ public  function actualizarRol(Request $request){
 public  function insertar(Request $request){
     $user= new User();
     $user->nombre=$request->get('newNombre');
+    $user->email=$request->get('newEmail');
     $user->password=$request->get('newPassword');
     $user->Save();
     return response()->json(['respuesta'=>$user]);
 }
 
 public function delete(Request $request){
-    $user = User::find($request->get('id')); $user->delete();
+    $user = User::find($request->get('id_usuario')); $user->delete();
 }
 
 }

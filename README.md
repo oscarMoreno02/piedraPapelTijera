@@ -1,66 +1,246 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Endpoints API REST
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## GET
 
-## About Laravel
+### Listar a todos los usuarios (Solo administradores)
+- **Ruta**: `http:://127.0.0.1:9090/admin/all`
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Resolución**: Devolverá todos los datos de los usuarios si se ha autenticado correctamente y es administrador.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Listar a un usuario (Solo administradores)
+- **Ruta**: `http:://127.0.0.1:9090/admin/user/{id}`
+- **JSON**:
+    ```json
+    {
+        "id": "xxxx",
 
-## Learning Laravel
+    }
+    ```
+- **Resolución**: Devolverá los datos de un usuario en concreto si se ha autenticado correctamente y es administrador.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Listar a todas las partidas
+- **Ruta**: `http:://127.0.0.1:9090/partida/consultar`
+  
+- **Resolución**: Devolverá los datos de todas las partidasse ha autenticado correctamente.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+### Listar a todas las partidas de un usuario concreto
+- **Ruta**: `http:://127.0.0.1:9090/partida/consultar/usuario`
+- **JSON**:
+      ```json
+    {
+        "id_usuario": "xxxx",
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+    }
+    ```
+- **Resolución**: Devolverá los datos de todas las partida si se ha autenticado correctamente.
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Consultar ranking de victorias 
+- **Ruta**: `http:://127.0.0.1:9090/partida/ranking/ganadas`
 
-## Contributing
+- **Resolución**: Devolverá una lista de usuarios ordenada por victorias si se ha autenticado correctamente.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+### Consultar ranking de perdidas 
+- **Ruta**: `http:://127.0.0.1:9090/partida/ranking/perdidas`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- **Resolución**: Devolverá una lista de usuarios ordenada por derrotas si se ha autenticado correctamente.
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Consultar ranking de empates 
+- **Ruta**: `http:://127.0.0.1:9090/partida/ranking/empates`
 
-## License
+- **Resolución**: Devolverá una lista de usuarios ordenada por empates si se ha autenticado correctamente.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+### Consultar ranking de jugadas 
+- **Ruta**: `http:://127.0.0.1:9090/partida/ranking/jugadas`
+
+- **Resolución**: Devolverá una lista de usuarios ordenada por partidas jugadas si se ha autenticado correctamente.
+
+
+### Listar a todas las manos jugadas
+- **Ruta**: `http:://127.0.0.1:9090/manos`
+
+- **Resolución**: Devolverá los datos de todas las manos si se ha autenticado correctamente.
+
+
+### Listar a todas las manos jugadas por un usuario concreto
+- **Ruta**: `http:://127.0.0.1:9090/manos/usuario`
+      ```json
+    {
+        "idUsuario": "xxxx",
+
+    }
+    ```
+- **Resolución**: Devolverá los datos de todas las manos de un usuario concreto si se ha autenticado correctamente.
+
+
+### Listar a todas las manos jugadas en una partida concreta
+- **Ruta**: `http:://127.0.0.1:9090/manos/partida`
+      ```json
+    {
+        "id_partida": "xxxx",
+
+    }
+    ```
+- **Resolución**: Devolverá los datos de todas las manos de una partida concreta si se ha autenticado correctamente.
+
+
+### Estadisticas de manos ganadadoras
+- **Ruta**: `http:://127.0.0.1:9090/estadisticas/ganadas`
+
+- **Resolución**: Devolverá una lista de las manos ordenadas por mayor numero de victorias y su porcentaje de victorias si se ha autenticado correctamente.
+
+
+### Estadisticas de manos perdedoras
+- **Ruta**: `http:://127.0.0.1:9090/estadisticas/perdidas`
+
+- **Resolución**: Devolverá una lista de las manos ordenadas por mayor numero de derrotas y su porcentaje de derrotas si se ha autenticado correctamente.
+
+
+### Estadisticas de manos empatadas
+- **Ruta**: `http:://127.0.0.1:9090/estadisticas/empatadas`
+
+- **Resolución**: Devolverá una lista de las manos ordenadas por mayor numero de empates y su porcentaje de empates si se ha autenticado correctamente.
+
+
+### Estadisticas de manos jugadas
+- **Ruta**: `http:://127.0.0.1:9090/estadisticas/jugadas`
+
+- **Resolución**: Devolverá una lista de las manos ordenadas por mayor numero de partidas jugadas y su porcentaje de partidas jugadas si se ha autenticado correctamente.
+
+
+## POST
+
+### Insertar un usuario (Solo administradores)
+- **Ruta**: `http:://127.0.0.1:9090/admin/user`
+- **JSON**:
+    ```json
+    {
+        "newNombre": "xxxx",
+        "newPassword": "xxxx",
+        "newEmail": "xxxxx"
+    }
+    ```
+- **Resolución**: Insertara el usuario en la base de datos con los demas campos por defecto si se ha autenticado correctamente y es administrador.
+
+
+
+### Crear una nueva partida 
+- **Ruta**: `http:://127.0.0.1:9090/partida/new`
+- **JSON**:
+    ```json
+    {
+        "usuario": "xxxx",
+        "usuario2": "xxxx"
+    }
+    ```
+- **Resolución**: Creara una nueva partida a la que se le asignaran los usuarios participantes si se ha autenticado correctamente.
+
+### Login
+- **Ruta**: `http:://127.0.0.1:9090/login`
+- **JSON**:
+    ```json
+    {
+        "email": "xxxx",
+        "password": "xxxx"
+    }
+    ```
+- **Resolución**: Creara y devolvera un nuevo token de acceso si los datos introducidos son correctos
+
+
+### Registro
+- **Ruta**: `http:://127.0.0.1:9090/register`
+- **JSON**:
+    ```json
+    {
+        "email": "xxxx",
+        "password": "xxxx",
+        "confirm_password": "xxxx",
+        "nombre":"xxxxx"
+    }
+    ```
+- **Resolución**: Registrara un nuevo usuario si cumple con los requisitos requeridos.
+
+### Logout
+- **Ruta**: `http:://127.0.0.1:9090/logout`
+- **JSON**:
+    ```json
+    {
+        "email": "xxxx",
+        "password": "xxxx",
+        
+    }
+    ```
+- **Resolución**: Revocara todos los tokens de acceso de un  usuario.
+
+## PUT
+
+### Actualizar el nombre de un usuario (Solo administradores)
+- **Ruta**: `http:://127.0.0.1:9090/admin/update/username`
+- **JSON**:
+    ```json
+    {
+        "newNombre": "xxxxx",
+        "idUpdate": "xxxxx"
+    }
+    ```
+
+- **Resolución**: Cambiara el nombre de usuario al que le corresponda el id indicado
+
+### Actualizar el email de un usuario (Solo administradores)
+- **Ruta**: `http:://127.0.0.1:9090/admin/update/password`
+- **JSON**:
+    ```json
+    {
+        "newPassword": "xxxxx",
+        "idUpdate": "xxxxx"
+    }
+    ```
+
+- **Resolución**: Cambiara la contraseña de usuario al que le corresponda el id indicado
+
+
+### Actualizar el rol de un usuario (Solo administradores)
+- **Ruta**: `http:://127.0.0.1:9090/admin/update/rol`
+- **JSON**:
+    ```json
+    {
+        "newRol": "xxxxx",
+        "idUpdate": "xxxxx"
+    }
+    ```
+
+- **Resolución**: Cambiara el rol de usuario al que le corresponda el id indicado
+
+
+### Jugar una ronda de una partida
+- **Ruta**: `http:://127.0.0.1:9090/partida/jugar`
+- **JSON**:
+    ```json
+    {
+        "id_partida": "xxxxx",
+        "mano_usuario1": "xxxxx",
+        "mano_usuario2": "xxxxx"
+    }
+    ```
+
+- **Resolución**: Insertara en la base de datos la mano correspondiente a la partida indicada junto con lo elegido por los usuarios para jugar
+
+
+## DELETE
+
+### Eliminación de Usuario (Solo Administradores)
+- **Ruta**: `http:://127.0.0.1:9090`
+- **JSON**:
+    ```json
+    {
+        "id_usuario": "xxxxx",
+    
+    }
+    ```
+- **Resolución**: Si el usuario es correcto y administrador, eliminará de la base de datos al usuario con el id indicado.
